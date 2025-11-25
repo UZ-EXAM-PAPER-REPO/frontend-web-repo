@@ -128,3 +128,34 @@
   .stat-card { min-width: 140px; }
   .paper-card { width: 100%; }
 }
+
+/* Upload page */
+.upload-page { padding: 12px 0 36px; }
+.upload-form { display:block; }
+.upload-row { display:flex; gap: 24px; align-items:flex-start; }
+.form-col { flex: 1; max-width: 480px; }
+.files-col { width: 420px; }
+.drag-area { border: 2px dashed rgba(15,23,42,0.06); border-radius: 10px; padding: 24px; text-align:center; cursor:pointer; }
+.drag-icon { font-size: 34px; margin-bottom: 8px; }
+.drag-text { font-weight: 700; }
+.drag-sub { color: var(--muted); font-size: 0.9rem; }
+.file-list { margin-top: 12px; max-height: 420px; overflow:auto; }
+.file-row { display:flex; gap: 14px; align-items:center; padding: 8px 10px; border-bottom: 1px dashed rgba(15,23,42,0.03); }
+.file-thumb img { width: 64px; height: 48px; object-fit:cover; border-radius: 6px; }
+.file-thumb { width: 64px; height: 48px; display:flex; align-items:center; justify-content:center; background: rgba(99,102,241,0.04); border-radius: 6px; }
+.file-name { font-weight: 600; }
+.file-meta { color: var(--muted); font-size: 0.85rem; }
+.file-actions { margin-left: auto; width: 200px; display:flex; flex-direction:column; gap:8px; }
+.progress { height: 8px; background: rgba(15,23,42,0.04); border-radius: 8px; overflow:hidden; }
+.progress-bar { height: 100%; background: linear-gradient(90deg, var(--primary), #60a5fa); }
+.file-actions-row { display:flex; gap: 8px; justify-content:flex-end; }
+.muted { color: var(--muted); }
+.upload-message { margin-top: 14px; padding: 10px 14px; border-radius: 8px; }
+.upload-message.info { background: rgba(37,99,235,0.06); color: var(--primary); }
+.upload-message.error { background: rgba(239,68,68,0.06); color: rgb(185,28,28); }
+.upload-message.success { background: rgba(16,185,129,0.06); color: rgb(5,150,105); }
+
+@media (max-width: 820px) {
+  .upload-row { flex-direction: column; }
+  .files-col { width: 100%; }
+}
