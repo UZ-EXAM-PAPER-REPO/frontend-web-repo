@@ -1,6 +1,6 @@
-
 import { useState } from 'react';
 import './App.css';
+import axios from 'axios';
 import { Navigation } from './components/Navigation';
 import { Footer } from './components/Footer';
 import { LandingPage } from './components/LandingPage';
@@ -9,25 +9,40 @@ import { UploadPage } from './components/UploadPage';
 import { AuthPage } from './components/AuthPage';
 import { AdminDashboard } from './components/AdminDashboard';
 
+const API_URL = "https://backend-repo-2-aqtm.onrender.com/api/auth";
+
 export default function App() {
   const [currentPage, setCurrentPage] = useState('landing');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const handleLogin = (email, password) => {
-    // Mock login logic
-    setIsLoggedIn(true);
-    if (email.includes('admin')) {
-      setIsAdmin(true);
+  const handleLogin = async (email, password) => {
+    try {
+      const res = await axios.post(`${API_URL}/login`, {
+        email,
+        password,
+      });
+
+      // Save JWT token
+      localStorage.setItem("token", res.data.token);
+
+      setIsLoggedIn(true);
+
+      if (res.data.user?.role === "admin") {
+        setIsAdmin(true);
+      }
+
+      setCurrentPage("landing");
+      alert("Login successful!");
+
+    } catch (err) {
+      console.error("Login error:", err.response?.data || err);
+      alert("Invalid credentials. Please", err.response.data );
     }
-    // basic placeholder use of password to satisfy lint rules
-    if (password && password.length < 3) {
-      // ignore weak password for demo (placeholder)
-    }
-    setCurrentPage('landing');
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("token");
     setIsLoggedIn(false);
     setIsAdmin(false);
     setCurrentPage('landing');
@@ -36,14 +51,15 @@ export default function App() {
   return (
     <div className="app-root">
       <div className="page-title">ExamRepo Web Platform Design</div>
-      <Navigation 
+
+      <Navigation
         currentPage={currentPage}
         onNavigate={setCurrentPage}
         isLoggedIn={isLoggedIn}
         isAdmin={isAdmin}
         onLogout={handleLogout}
       />
-      
+
       <main className="flex-1">
         {currentPage === 'landing' && <LandingPage onNavigate={setCurrentPage} />}
         {currentPage === 'browse' && <BrowsePage />}
@@ -51,7 +67,7 @@ export default function App() {
         {currentPage === 'auth' && <AuthPage onLogin={handleLogin} />}
         {currentPage === 'admin' && isAdmin && <AdminDashboard />}
       </main>
-      
+
       <Footer />
     </div>
   );
