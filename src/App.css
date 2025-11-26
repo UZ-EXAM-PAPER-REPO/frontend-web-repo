@@ -96,6 +96,10 @@
 
 /* auth */
 .auth-box { width: 100%; max-width: 420px; margin: 18px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 8px 30px rgba(17,24,39,0.04); transition: transform .12s ease, box-shadow .12s ease; }
+
+@media (hover: hover) {
+  .auth-box:hover { transform: translateY(-3px); box-shadow: 0 12px 38px rgba(17,24,39,0.06); }
+}
 .auth-header { display:flex; align-items:center; justify-content:space-between; margin-bottom: 8px; }
 .auth-switch { display:flex; gap:8px; }
 .form-error { background: rgba(239,68,68,0.06); color: rgb(185,28,28); padding: 8px 10px; border-radius: 8px; margin-bottom: 12px; }
