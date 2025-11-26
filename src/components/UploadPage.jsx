@@ -22,7 +22,7 @@ const PAPER_TYPES = [
 
 export function UploadPage({ isLoggedIn, onNavigate }) {
   const [title, setTitle] = useState('');
-  const [faculty, setFaculty] = useState(FACULTIES[0]);
+  const [faculty, setFaculty] = useState(FACULTIES[0])
   const [courseId, setCourseId] = useState('');
   const [paperTypeId, setPaperTypeId] = useState('');
   const [year, setYear] = useState(new Date().getFullYear());
@@ -122,6 +122,13 @@ export function UploadPage({ isLoggedIn, onNavigate }) {
               <label>
                 Title
                 <input className="input" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Paper title or course name" />
+              </label>
+
+              <label>
+                Faculty
+                <select className="input" value={faculty} onChange={(e) => setFaculty(e.target.value)}>
+                  {FACULTIES.map((f) => <option key={f} value={f}>{f}</option>)}
+                </select>
               </label>
 
               <label>
