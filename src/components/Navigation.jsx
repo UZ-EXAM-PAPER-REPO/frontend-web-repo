@@ -16,6 +16,9 @@ export function Navigation({ currentPage, onNavigate, isLoggedIn, isAdmin, onLog
           <button className={`nav-link ${currentPage === 'auth' ? 'active' : ''}`} onClick={() => onNavigate('auth')}>Login</button>
         </nav>
         <div className="nav-actions">
+          {!isLoggedIn && (
+            <button className="btn small" style={{marginRight: '8px'}} onClick={() => onNavigate('register')}>Sign up</button>
+          )}
           {isLoggedIn ? (
             <button className="btn small" onClick={onLogout}>Logout</button>
           ) : (

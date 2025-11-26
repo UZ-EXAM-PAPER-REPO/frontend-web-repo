@@ -4,6 +4,7 @@ const FACULTIES = [
   { id: 'cs', name: 'Computer Science', papers: 224 },
   { id: 'eng', name: 'Engineering', papers: 198 },
   { id: 'med', name: 'Medicine', papers: 165 },
+  { id: 'law', name: 'Law', papers: 92 },
 ];
 
 export function Faculty() {

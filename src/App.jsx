@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import './App.css';
-import axios from 'axios';
 import { Navigation } from './components/Navigation';
 import { Footer } from './components/Footer';
 import { LandingPage } from './components/LandingPage';
 import { BrowsePage } from './components/BrowsePage';
 import { UploadPage } from './components/UploadPage';
-import { AuthPage } from './components/AuthPage';
+import AuthPage from './components/AuthPageClean';
+import RegisterPage from './components/RegisterPage';
 import { AdminDashboard } from './components/AdminDashboard';
 
-const API_URL = "https://backend-repo-2-aqtm.onrender.com/api/auth";
+// Note: authentication is implemented locally using `localStorage` in this example.
+const USERS_KEY = 'examrepo_users';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('landing');
@@ -17,28 +18,24 @@ export default function App() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const handleLogin = async (email, password) => {
-    try {
-      const res = await axios.post(`${API_URL}/login`, {
-        email,
-        password,
-      });
+    // Read local users – this app supports local registration via the Auth page.
+    const raw = localStorage.getItem(USERS_KEY);
+    const users = raw ? JSON.parse(raw) : [];
 
-      // Save JWT token
-      localStorage.setItem("token", res.data.token);
-
-      setIsLoggedIn(true);
-
-      if (res.data.user?.role === "admin") {
-        setIsAdmin(true);
-      }
-
-      setCurrentPage("landing");
-      alert("Login successful!");
-
-    } catch (err) {
-      console.error("Login error:", err.response?.data || err);
-      alert("Invalid credentials. Please", err.response.data );
+    const user = users.find((u) => u.email.toLowerCase() === email.toLowerCase());
+    if (!user) {
+      throw new Error('User not found');
     }
+    if (user.password !== password) {
+      throw new Error('Invalid password');
+    }
+
+    // Save a simple token for illustration
+    localStorage.setItem('token', `local-${user.id}`);
+    setIsLoggedIn(true);
+    setIsAdmin(user.role === 'admin');
+    setCurrentPage('landing');
+    return { user };
   };
 
   const handleLogout = () => {
@@ -65,6 +62,7 @@ export default function App() {
         {currentPage === 'browse' && <BrowsePage />}
         {currentPage === 'upload' && <UploadPage isLoggedIn={isLoggedIn} onNavigate={setCurrentPage} />}
         {currentPage === 'auth' && <AuthPage onLogin={handleLogin} />}
+        {currentPage === 'register' && <RegisterPage onRegistered={() => { /* optional: auto-login or show success */ }} onNavigate={setCurrentPage} />}
         {currentPage === 'admin' && isAdmin && <AdminDashboard />}
       </main>
 
