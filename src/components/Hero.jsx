@@ -1,7 +1,7 @@
 import React from 'react';
 import heroImg from '../assets/hero.svg';
 
-export function Hero({ onSearch }) {
+export function Hero({ onSearch, onNavigate }) {
   return (
     <section className="hero">
       <div className="hero-left">
@@ -15,8 +15,8 @@ export function Hero({ onSearch }) {
         </div>
 
         <div className="hero-actions">
-          <button className="btn ghost">Browse Papers</button>
-          <button className="btn" style={{marginLeft: '8px'}}>Upload Paper</button>
+          <a href="#browse" className="btn ghost" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('browse'); }}>Browse Papers</a>
+          <a href="#upload" className="btn" style={{marginLeft: '8px'}} onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('upload'); }}>Upload Paper</a>
         </div>
 
         <div className="stats-row">

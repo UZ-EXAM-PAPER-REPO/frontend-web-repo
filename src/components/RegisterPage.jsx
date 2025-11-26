@@ -123,7 +123,8 @@ export default function RegisterPage({ onRegistered, onNavigate }) {
             </select>
           </label>
 
-          <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+          <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', alignItems: 'center' }}>
+            <a href="#login" className="muted" onClick={(e) => { e.preventDefault(); if (onNavigate) onNavigate('auth'); }}>Already have an account? Login</a>
             <button className="btn primary" type="submit" disabled={loading}>{loading ? 'Signing up...' : 'Create Account'}</button>
           </div>
         </form>

@@ -64,6 +64,7 @@ export default function AuthPage({ onLogin }) {
         await onLogin(email, password);
         setInfo(`Welcome back, ${user.name.split(' ')[0]}!`);
       } catch (err) {
+        console.warn('Login failed', err);
         setError('Failed to log in.');
       }
 
@@ -124,7 +125,7 @@ export default function AuthPage({ onLogin }) {
   return (
     <div className="page auth-page">
       <div className="auth-box">
-        <div className="auth-header">
+          <div className="auth-header">
           <h2>{mode === 'login' ? 'Login' : 'Create an Account'}</h2>
           <div className="auth-switch">
             <button type="button" className={`btn small ${mode === 'login' ? 'ghost' : ''}`} onClick={() => { setMode('login'); setError(null); setInfo(null); }}>Login</button>
@@ -146,6 +147,7 @@ export default function AuthPage({ onLogin }) {
               <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="input" required />
             </label>
             <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+              <a href="#register" className="muted" onClick={(e) => { e.preventDefault(); setMode('register'); }}>Need an account? Sign up</a>
               <button className="btn primary" type="submit" disabled={loading}>{loading ? 'Logging in...' : 'Login'}</button>
             </div>
           </form>
@@ -175,7 +177,8 @@ export default function AuthPage({ onLogin }) {
                 {FACULTIES.map((f) => <option key={f} value={f}>{f}</option>)}
               </select>
             </label>
-            <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+            <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', alignItems: 'center' }}>
+              <a href="#login" className="muted" onClick={(e) => { e.preventDefault(); setMode('login'); }}>Already have an account? Login</a>
               <button className="btn primary" type="submit" disabled={loading}>{loading ? 'Signing up...' : 'Create Account'}</button>
             </div>
           </form>
