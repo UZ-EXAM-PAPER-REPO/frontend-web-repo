@@ -167,7 +167,8 @@
 .files-col { width: 420px; }
 .drag-area { border: 2px dashed rgba(15,23,42,0.06); border-radius: 10px; padding: 24px; text-align:center; cursor:pointer; transition: border-color .12s ease, background .12s ease, transform .08s ease; }
 .drag-area:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(17,24,39,0.02); }
-.drag-area.drag-over { border-color: var(--primary); background: linear-gradient(90deg, rgba(96,165,250,0.04), rgba(96,165,250,0.02)); }
+.drag-area.drag-over { border-color: var(--primary); background: linear-gradient(90deg, rgba(96,165,250,0.04), rgba(96,165,250,0.02)); box-shadow: 0 6px 18px rgba(37,99,235,0.06); transform: translateY(-2px); }
+.drag-area:active { transform: translateY(0); }
 .drag-icon { font-size: 34px; margin-bottom: 8px; }
 .drag-text { font-weight: 700; }
 .drag-sub { color: var(--muted); font-size: 0.9rem; }
