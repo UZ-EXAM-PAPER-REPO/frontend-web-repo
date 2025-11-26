@@ -229,7 +229,7 @@ export function UploadPage({ isLoggedIn, onNavigate }) {
 
           {message && (
             <div className={`upload-message ${message.type}`}>
-              {message.text}
+              {`this: ${message.text}`}
             </div>
           )}
         </form>
